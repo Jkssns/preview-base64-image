@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./index.css">
+	<title>base64转换</title>
+</head>
+<body>
+	<div class="container">
+		<div class="left_wrapper">
+			<textarea class="base64_input" placeholder=""></textarea>
+			<p class="base64_tip tip_left">粘贴图片base64，右边显示图片</p>
+		</div>
+		<div class="middle"></div>
+		<div class="right_wrapper">
+			<img class="base64_img" src=""/>
+			<p class="base64_tip">拖入文件，左边回显base64</p>
+		</div>
+	</div>
+</body>
+<script src="./index.js"></script>
+<script>
+(function noDebuger() {
+    function testDebuger() {
+        var d = new Date();
+        debugger;
+        if (new Date() - d > 10) {
+            document.body.innerHTML = '<div style="width: 100%;height: 50px;font-size: 30px;text-align: center;font-weight: bold;">开发者人员工具已被禁用，<a href="/" target="_self" style="color:#4285f4;">点击返回</a>~</div>';
+            return true;
+        }
+        return false;
+    }
+    function start() {
+        while (testDebuger()) {
+            testDebuger();
+        }
+    }
+    if (!testDebuger()) {
+        window.onblur = function () {
+            setTimeout(function () {
+                start();
+            }, 500);
+        };
+    } else {
+        start();
+    }
+})();
+</script>
+</html>

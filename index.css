@@ -1,0 +1,67 @@
+html, body {
+	width: 100%;
+	height: 100%;
+}
+html, body, div, textarea, img, p {
+	margin: 0;
+	padding: 0;
+}
+.container {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+.left_wrapper, .right_wrapper {
+	position: relative;
+	width: 50%;
+	height: 100%;
+}
+.left_wrapper.active, .left_wrapper.active .base64_input, .right_wrapper.active {
+	user-select: none;
+	pointer-events: none;
+	cursor: col-resize;
+}
+.left_wrapper .base64_input {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	padding: 5px;
+	box-sizing: border-box;
+	line-height: normal;
+	resize: none;
+}
+.left_wrapper {
+	min-width: 100px;
+}
+.middle {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 8px;
+	height: 100%;
+	background-color: rgba(58, 58, 58, 0.1);
+	cursor: col-resize;
+}	
+.middle.active {
+	width: 16px;
+	background-color: rgba(58, 58, 58, 0.3);
+}
+.middle:hover {
+	width: 16px;
+	background-color: rgba(58, 58, 58, 0.3);
+}
+.right_wrapper {
+	flex: 1;
+	overflow: auto;
+}
+.base64_tip {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	color: #b7b7b7;
+	user-select: none;
+}
