@@ -65,3 +65,16 @@ html, body, div, textarea, img, p {
 	color: #b7b7b7;
 	user-select: none;
 }
+.file_title {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+.file_title img {
+	margin-right: 8px;
+}
