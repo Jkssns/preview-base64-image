@@ -3,7 +3,7 @@ console.log("12341234::: ", 12341234);
 createApp({
     data() {
         return {
-            chatValue: '1111111',
+            chatValue: '',
             moveTop: '',
             footerHeight: '130',
             offsetTop: '',
@@ -17,18 +17,17 @@ createApp({
         onMouseDown() {
             this.moved = true;
             const mouseMove = (e) => {
-                console.log('e::: ', e);
-                if (this.moved) {
+                const moveDistence = this.offsetTop - e.clientY;
+                if (this.moved && (moveDistence >= 0 && moveDistence < 200)) {
                     this.moveTop = e.clientY;
-                    this.footerHeight = e.clientY - 130;
-                    console.log('this.footerHeight::: ', this.footerHeight);
+                    this.footerHeight = moveDistence + 130;
                 }
             }
             const mouseUp = () => {
                 this.moved = false;
             }
             document.addEventListener('mousemove', mouseMove);
-            document.addEventListener('up', () => {
+            document.addEventListener('mouseup', () => {
                 document.removeEventListener('mousemove', mouseMove);
                 document.removeEventListener('mouseUp', mouseUp);
             });

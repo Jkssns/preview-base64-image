@@ -54,16 +54,20 @@
 				font-size: 16px;
 				line-height: normal;
 				background-color: transparent;
-				padding: 0 10px;
+				padding: 0 15px;
 				resize: none;
-				border: 1px solid red;
+            }
+            .chat_footer .chat_file{
+				position: absolute;
+				opacity: 0;
+				margin: 10px 0 0 10px;
+				width: 25px;
+				height: 25px;
             }
 			.chat_footer_topLine {
 				position: absolute;
 				height: 4px;
-				width: 100%;
-				background: red;
-				/* transform: translateY(-50%); */
+				width: 40vw;
 				cursor: n-resize;
 			}
 			.chat_file_icon {
@@ -106,6 +110,7 @@
 				<footer class="chat_footer" :style="{height: footerHeight + 'px'}">
 					<hr class="chat_footer_topLine" ref="topLine" :style="{top: moveTop + 'px'}" @mousedown="onMouseDown"  @mousemove="onMouseMove" @mouseup="onMouseUp">
 					<div class="footer_header">
+						<input class="chat_file" type="file">
 						<img class="chat_file_icon" src="../assets/file.png" />
 					</div>
 					<textarea class="chat_ipt" type="text" v-model="chatValue"></textarea>
