@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<link rel="stylesheet" href="../assets/reset.css">
+        <title>Document</title>
+        <style>
+            .chat_container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+				background-color: #2c2c2c;
+            }
+			.chat_wrapper {
+				display: flex;
+				flex-direction: column;
+				width: 40vw;
+				height: 80vh;
+				background-color: #f9f9f9;
+			}
+            .chat_header {
+                height: 60px;
+                border-bottom: 1px solid #ebecec;
+            }
+            .chat_main {
+                flex: 1;
+            }
+            .chat_main .chat_tip {
+                text-align: center;
+                line-height: 40px;
+                color: #afafad;
+				user-select: none;
+            }
+            .chat_main .chat_tip:nth-of-type(1) {
+                margin-top: 200px;
+            }
+            .chat_footer {
+				display: flex;
+				flex-direction: column;
+                border-top: 1px solid #ebecec;
+            }
+            .chat_footer .footer_header{
+                height: 40px;
+            }
+            .chat_footer .chat_ipt{
+				flex: 1;
+				outline: none;
+				border: none;
+				font-size: 16px;
+				line-height: normal;
+				background-color: transparent;
+				padding: 0 10px;
+				resize: none;
+				border: 1px solid red;
+            }
+			.chat_footer_topLine {
+				position: absolute;
+				height: 4px;
+				width: 100%;
+				background: red;
+				/* transform: translateY(-50%); */
+				cursor: n-resize;
+			}
+			.chat_file_icon {
+				margin: 10px 0 0 10px;
+				cursor: pointer;
+				user-select: none;
+			}
+			.chat_send {
+				margin: 5px 15px 15px auto;
+				width: 100px;
+				height: 35px;
+				border: none;
+				outline: none;
+				border-radius: 5px;
+				background-color: #e3e3e3;
+				letter-spacing: 2px;
+				color: #b9b9b9;
+				cursor: pointer;
+				opacity: 0.7;
+			}
+			.chat_send.hasValue {
+				background-color: #07c160;
+				color: #fff;
+			}
+			.chat_send:active {
+				opacity: 1;
+			}
+        </style>
+    </head>
+    <body>
+        <div id="app" class="chat_container" >
+			<div class="chat_wrapper">
+				<header class="chat_header"></header>
+	
+				<main class="chat_main" >
+					<p class="chat_tip">文件有效期为24小时</p>
+					<p class="chat_tip">点击右上角X，删除该取件码下所有文件</p>
+				</main>
+	
+				<footer class="chat_footer" :style="{height: footerHeight + 'px'}">
+					<hr class="chat_footer_topLine" ref="topLine" :style="{top: moveTop + 'px'}" @mousedown="onMouseDown"  @mousemove="onMouseMove" @mouseup="onMouseUp">
+					<div class="footer_header">
+						<img class="chat_file_icon" src="../assets/file.png" />
+					</div>
+					<textarea class="chat_ipt" type="text" v-model="chatValue"></textarea>
+					<button class="chat_send" :class="{ hasValue: chatValue }">发送</button>
+				</footer>
+			</div>
+        </div>
+    </body>
+    <script type="module" src="./chat.js"></script>
+</html>

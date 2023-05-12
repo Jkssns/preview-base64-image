@@ -13,8 +13,6 @@ const mouseMove = (e) => {
 		return;
 	}
 	middle.style.left = e.clientX + 'px';
-	if (!middle.classList.contains('active')) {
-	}
 	leftWrapper.style.width = e.clientX + 'px';
 }
 

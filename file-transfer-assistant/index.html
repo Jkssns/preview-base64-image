@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+        <meta name="keywords" content="小熊快传,在线文件传输,文件暂存站,文件网络传输" />
+        <link rel="stylesheet" href="./index.css" />
+        <link rel="icon" href="../assets/bear.png" />
+        <title>小熊快传</title>
+        <style>
+			#app {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+            .code_container {
+                width: 300px;
+				height: 300px;
+                padding: 2rem;
+                border-radius: 4px;
+                margin: 15vh auto 0;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                background: #fff;
+            }
+            .code_title {
+                text-align: center;
+				color: #3a3a3a;
+            }
+            .code_ipt_wrapper {
+                display: flex;
+                justify-content: space-between;
+            }
+            .code_ipt {
+                width: 50px;
+                height: 60px;
+                border: 1px solid #e8e8e8;
+                outline: none;
+                text-align: center;
+                line-height: 120px;
+                font-size: 30px;
+                border-radius: 6px;
+            }
+            .code_ipt:focus {
+                outline: 2px solid #23d96e;
+            }
+            .code_confirm {
+                text-shadow: 0 -1px -1px #26d46a;
+                -moz-box-shadow: 0 4px 0 #26d46a, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
+                -webkit-box-shadow: 0 4px 0 #26d46a, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 4px 0 #26d46a, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
+                -moz-transition: all 0.15s ease-in-out;
+                -o-transition: all 0.15s ease-in-out;
+                -webkit-transition: all 0.15s ease-in-out;
+                transition: all 0.15s ease-in-out;
+                margin: 20px auto 0;
+                width: 100%;
+                height: 60px;
+                border: none;
+                outline: none;
+                font-size: 20px;
+                letter-spacing: 5px;
+                color: #fff;
+                border-radius: 6px;
+                background-color: #2bdc70;
+                cursor: pointer;
+            }
+            .code_confirm:hover {
+                background-color: #2bdc70;
+                text-shadow: 0 -1px -1px #1cd463;
+                -moz-box-shadow: 0 4px 0 #1cd463, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
+                -webkit-box-shadow: 0 4px 0 #1cd463, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 4px 0 #1cd463, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
+            }
+            .code_confirm:active {
+				transform: translateY(-2px);
+                -moz-box-shadow: none;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+			.code_getFile {
+				background: #fff;
+				border: 2px solid #2bdc70;
+				color: #2bdc70;
+				box-shadow: none;
+				margin: 30px auto 0;
+                width: 100%;
+                height: 60px;
+                outline: none;
+				font-size: 20px;
+                letter-spacing: 5px;
+                border-radius: 6px;
+                cursor: pointer;
+			}
+			.code_getFile:active {
+				transform: scale(0.99);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="code_container">
+                <h4 class="code_title">请输入数字、字母组成的取件码</h4>
+
+                <div class="code_ipt_wrapper">
+                    <input v-for="(item, index) in codeArr" v-model="item" :key="index" type="text" maxlength="1" pattern="[0-9A-z]" class="code_ipt" @focus="onInputFocus"  @keydown="onInputKeydown" @paste="onInputPaste" @input="onInput" />
+                </div>
+
+                <button class="code_confirm">创建</button>
+                <button class="code_getFile">取件</button>
+            </div>
+        </div>
+
+        <footer class="file_footer">
+			PS: 1、类似微信文件传输助手，一端上传，多端下载。
+				<br>
+				2、文件有效期为24小时，文件下载后，请及时删除取件码，以节省我的钱。
+		</footer>
+    </body>
+    <script src="../assets/aliyun-oss-sdk.min.js"></script>
+    <script type="module" src="./index.js"></script>
+    <!-- <script src="../assets/debugger.js"></script> -->
+</html>
