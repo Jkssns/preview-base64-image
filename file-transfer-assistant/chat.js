@@ -1,5 +1,5 @@
 import {createApp} from '../assets/vue.esm-browser.prod.js';
-console.log("12341234::: ", 12341234);
+
 createApp({
     data() {
         return {
@@ -7,30 +7,72 @@ createApp({
             moveTop: '',
             footerHeight: '130',
             offsetTop: '',
+            chatInfo: {
+                "code": "1234",
+                "createTime": 0,
+                "messages": [
+                    {
+                        "userType": "robot",
+                        "createTime": 0,
+                        "messageType": "message",
+                        "msg": "人类，你好，开始使用人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1我来传输文件吧！1",
+                        "files": []
+                    },
+                    {
+                        "userType": "user",
+                        "createTime": 0,
+                        "messageType": "message",
+                        "msg": "22222人类，你好，开始使用人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1我来传输文件吧！1",
+                        "files": []
+                    },
+                    {
+                        "userType": "robot",
+                        "createTime": 0,
+                        "messageType": "message",
+                        "msg": "33333人类，你好，开始使用人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1我来传输文件吧！1",
+                        "files": []
+                    },
+                    {
+                        "userType": "user",
+                        "createTime": 0,
+                        "messageType": "file",
+                        "msg": "5555人类，你好，开始使用人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1人类，你好，开始使用我来传输文件吧！1我来传输文件吧！1",
+                        "files": []
+                    },
+                    {
+                        "userType": "robot",
+                        "createTime": 0,
+                        "messageType": "file",
+                        "msg": "人类，你好，开始使用我来传输文件吧！4",
+                        "files": []
+                    },
+                ]
+            },
         };
     },
     mounted() {
         const { top } = this.$refs.topLine.getBoundingClientRect();
         this.offsetTop = top;
+        document.addEventListener('mousemove', this.mouseMove);
+        document.addEventListener('mouseup', this.mouseUp);
+    },
+    beforeDestory() {
+        document.addEventListener('mousemove', this.mouseMove);
+        document.addEventListener('mouseup', this.mouseUp);
     },
     methods: {
         onMouseDown() {
             this.moved = true;
-            const mouseMove = (e) => {
-                const moveDistence = this.offsetTop - e.clientY;
-                if (this.moved && (moveDistence >= 0 && moveDistence < 200)) {
-                    this.moveTop = e.clientY;
-                    this.footerHeight = moveDistence + 130;
-                }
+        },
+        mouseMove (e) {
+            const moveDistence = this.offsetTop - e.clientY;
+            if (this.moved && (moveDistence >= 0 && moveDistence < 200)) {
+                this.moveTop = e.clientY;
+                this.footerHeight = moveDistence + 130;
             }
-            const mouseUp = () => {
-                this.moved = false;
-            }
-            document.addEventListener('mousemove', mouseMove);
-            document.addEventListener('mouseup', () => {
-                document.removeEventListener('mousemove', mouseMove);
-                document.removeEventListener('mouseUp', mouseUp);
-            });
+        },
+        mouseUp () {
+            this.moved = false;
         },
 
     },

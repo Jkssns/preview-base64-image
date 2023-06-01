@@ -25,10 +25,12 @@
 			}
             .chat_header {
                 height: 60px;
+                min-height: 60px;
                 border-bottom: 1px solid #ebecec;
             }
             .chat_main {
                 flex: 1;
+				overflow: hidden;
             }
             .chat_main .chat_tip {
                 text-align: center;
@@ -40,12 +42,15 @@
                 margin-top: 200px;
             }
             .chat_footer {
+				height: 130px;
+				min-height: 130px;
 				display: flex;
 				flex-direction: column;
                 border-top: 1px solid #ebecec;
             }
             .chat_footer .footer_header{
                 height: 40px;
+				cursor: pointer;
             }
             .chat_footer .chat_ipt{
 				flex: 1;
@@ -63,16 +68,16 @@
 				margin: 10px 0 0 10px;
 				width: 25px;
 				height: 25px;
+				cursor: pointer;
             }
 			.chat_footer_topLine {
 				position: absolute;
-				height: 4px;
+				height: 6px;
 				width: 40vw;
 				cursor: n-resize;
 			}
 			.chat_file_icon {
 				margin: 10px 0 0 10px;
-				cursor: pointer;
 				user-select: none;
 			}
 			.chat_send {
@@ -95,6 +100,69 @@
 			.chat_send:active {
 				opacity: 1;
 			}
+			.message_container {
+				height: 100%;
+				overflow: auto;
+			}
+			.message_item {
+				display: flex;
+			}
+			.message_item.robot {
+				margin: 10px 0 20px 10px;
+			}
+			.message_item.user {
+				margin: 10px 10px 20px 0;
+			}
+			.message_item.robot {
+				display: flex;
+				margin: 10px 0 20px 10px;
+			}
+			.message_robot {
+				display: flex;
+				justify-content: flex-start;
+			}
+			.message_avatar {
+				width: 40px;
+				height: 40px;
+			}
+			.message_content {
+				position: relative;
+				width: 60%;
+				padding: 10px;
+				margin-left: 10px;
+				background-color: #fff;
+				border-radius: 3px;
+				font-size: 14px;
+				font-family: 思源黑体, Robot;
+				line-height: 20px;
+			}
+			.message_content::after {
+				content: ' ';
+				position: absolute;
+				top: 15px;
+				left: -5px;
+				width: 10px;
+				height: 10px;
+				transform: rotate(45deg);
+				background-color: #fff;
+				border-radius: 3px;
+			}
+			.message_user {
+				display: flex;
+				justify-content: flex-end;
+			}
+			.message_user .message_content {
+				margin-left: 0px;
+				margin-right: 10px;
+				background-color: #95ec69;
+			}
+			.message_user .message_content::after{
+				position: absolute;
+				top: 15px;
+				right: -5px;
+				left: auto;
+				background-color: #95ec69;
+			}
         </style>
     </head>
     <body>
@@ -102,9 +170,33 @@
 			<div class="chat_wrapper">
 				<header class="chat_header"></header>
 	
-				<main class="chat_main" >
-					<p class="chat_tip">文件有效期为24小时</p>
-					<p class="chat_tip">点击右上角X，删除该取件码下所有文件</p>
+				<main class="chat_main">
+					<template v-if="chatInfo.messages.length">
+						<ul class="message_container">
+							<li class="message_item" :class="item.userType" v-for="item in chatInfo.messages" :key="item.id">
+								<div class="message_robot" v-if="item.userType === 'robot'">
+									<img class="message_avatar" src="../assets/bear.png" >
+									<div class="message_content">
+										{{item.msg}}
+									</div>
+								</div>
+								<div class="message_user" v-else>
+									<div class="message_content" v-if="item.messageType === 'message'">
+										{{item.msg}}
+									</div>
+									<div class="message_content" v-else-if="item.messageType === 'file'">
+										{{item.msg}}
+									</div>
+									<img class="message_avatar" src="../assets/bear.png" >
+								</div>
+							</li>
+						</ul>
+					</template>
+
+					<template v-else>
+						<p class="chat_tip">文件有效期为24小时</p>
+						<p class="chat_tip">点击右上角X，删除该取件码下所有文件</p>
+					</template>
 				</main>
 	
 				<footer class="chat_footer" :style="{height: footerHeight + 'px'}">
