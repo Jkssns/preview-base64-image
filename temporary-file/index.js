@@ -52,7 +52,7 @@ fileDom.onchange = async e => {
 	const path = code + '/'; 
     const fileArr = Array.from(e.target.files);
 
-	fileArr.forEach((item, index) => {
+	fileArr.forEach(async (item, index) => {
 		try {
 			const obj = {
 				name: item.name,
@@ -62,22 +62,29 @@ fileDom.onchange = async e => {
 			}
 			uploadUrls.push(obj);
 			// 分片上传。
-			client.multipartUpload(path + item.name, item, {
+			await client.multipartUpload(path + item.name, item, {
 				progress: (p, cpt, res) => {
-					obj.uploadId = cpt.uploadId;
-					obj.progress = (p * 100).toFixed(2);
-					let dom = document.getElementById(obj.id);
-					if (dom) {
-						dom.querySelector('.file_item_percentage').innerText = obj.progress + '%';
-						if (p >= 1) {
+					if (cpt) {
+						obj.uploadId = cpt.uploadId;
+						obj.progress = (p * 100).toFixed(2);
+						let dom = document.getElementById(obj.id);
+						if (dom) {
+							dom.querySelector('.file_item_percentage').innerText = obj.progress + '%';
+							if (p >= 1) {
+								handleUploadOl();
+							}
+						} else {
 							handleUploadOl();
 						}
-					} else {
-						handleUploadOl();
 					}
 				},
 				mime: 'application/octet-stream',
 			});
+
+			if (item.size < 1024 * 100) { // 小于100K直接显示结果
+				obj.progress = '100';
+				handleUploadOl();
+			}
 		} catch (err) {
 			console.log(err);
 		}
