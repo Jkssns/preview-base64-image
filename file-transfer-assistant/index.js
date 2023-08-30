@@ -4,7 +4,6 @@ createApp({
     data() {
         return {
             count: 'Hello Vue!',
-            code: '1234',
             KEYBOARDS: {
                 backspace: 8,
                 arrowLeft: 37,
@@ -18,16 +17,21 @@ createApp({
 			]
         };
     },
+    computed: {
+        submitDisabled() {
+            return !this.codeArr.every(item => item);
+        }
+    },
     methods: {
         onInputFocus(e) {
             setTimeout(() => {
                 e.target.select();
             }, 0);
         },
-        onInputKeydown(e) {
+        onInputKeydown(e, index) {
             switch (e.keyCode) {
                 case this.KEYBOARDS.backspace:
-                    this.handleBackspace(e);
+                    this.handleBackspace(e, index);
                     break;
                 case this.KEYBOARDS.arrowLeft:
                     this.handleArrowLeft(e);
@@ -43,8 +47,9 @@ createApp({
             const paste = e.clipboardData.getData('text');
 			this.codeArr = paste.split('').slice(0, 4);
         },
-        onInput(e) {
+        onInput(e, index) {
             const input = e.target;
+            this.codeArr[index] = input.value;
             const nextInput = input.nextElementSibling;
             if (nextInput && input.value) {
                 nextInput.focus();
@@ -53,9 +58,10 @@ createApp({
                 }
             }
         },
-        handleBackspace(e) {
+        handleBackspace(e, index) {
             const input = e.target;
             if (input.value) {
+                this.codeArr[index] = '';
                 input.value = '';
                 return;
             }

@@ -73,7 +73,7 @@
                 -webkit-box-shadow: 0 4px 0 #1cd463, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
                 box-shadow: 0 4px 0 #1cd463, 0 5px 5px 1px rgba(0, 0, 0, 0.4);
             }
-            .code_confirm:active {
+            .code_confirm:not(.disabled):active {
 				transform: translateY(-2px);
                 -moz-box-shadow: none;
                 -webkit-box-shadow: none;
@@ -97,6 +97,10 @@
 			.code_getFile:active {
 				transform: scale(0.99);
             }
+            button.disabled {
+                opacity: 0.8;
+                transform: none!important;
+            }
         </style>
     </head>
     <body>
@@ -105,11 +109,23 @@
                 <h4 class="code_title">请输入数字、字母组成的取件码</h4>
 
                 <div class="code_ipt_wrapper">
-                    <input v-for="(item, index) in codeArr" v-model="item" :key="index" type="text" maxlength="1" pattern="[0-9A-z]" class="code_ipt" @focus="onInputFocus"  @keydown="onInputKeydown" @paste="onInputPaste" @input="onInput" />
+                    <input 
+                        v-for="(item, index) in codeArr" 
+                        v-model="item" 
+                        :key="index" 
+                        type="text" 
+                        maxlength="1" 
+                        pattern="[0-9A-z]" 
+                        class="code_ipt" 
+                        @focus="onInputFocus"  
+                        @keydown="onInputKeydown($event, index)" 
+                        @paste="onInputPaste" 
+                        @input="onInput($event, index)" 
+                    />
                 </div>
 
-                <button class="code_confirm">创建</button>
-                <button class="code_getFile">取件</button>
+                <button class="code_confirm" :class="{disabled: submitDisabled}">创建</button>
+                <button class="code_getFile" :class="{disabled: submitDisabled}" >取件</button>
             </div>
         </div>
 
