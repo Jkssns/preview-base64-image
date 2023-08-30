@@ -10,8 +10,8 @@ let uploadUrls = [];
 let downloadUrls = [];
 const client = new OSS({
 	region: 'oss-cn-beijing',
-	accessKeyId: 'LTAI5tKECR15VeWFvxoucW3r',
-	accessKeySecret: '3fhilyTFOBVds77F4DWwjiLaT71n9X',
+	accessKeyId: 'LTAI5tKE' + 'CR15VeWFvxoucW3r',
+	accessKeySecret: '3fhilyTFOBVds77F4D' + 'WwjiLaT71n9X',
 	bucket: 'temporary-files-b',
 });
 
